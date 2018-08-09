@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+邮件验证页面<br>
+    <form class= "login" method="post" action="/account/send_user_email">
+            {% module xsrf_form_html() %}
+            <p>邮箱地址：<br><input type="text" name="email"></p>
+            <input type="submit" value="发送">
+    </form>
+</body>
+</body>
+</html>

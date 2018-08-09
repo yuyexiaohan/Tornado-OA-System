@@ -1,0 +1,132 @@
+{% extends '../base/main_user_base.html' %}
+
+{% block head %}
+    <link rel="stylesheet" href="/static/common/simditor/styles/simditor.css">
+
+    <script src="/static/common/js/jquery-1.10.2.min.js"></script>
+	<script src="/static/common/simditor/scripts/module.min.js"></script>
+	<script src="/static/common/simditor/scripts/hotkeys.min.js"></script>
+	<script src="/static/common/simditor/scripts/uploader.min.js"></script>
+	<script src="/static/common/simditor/scripts/simditor.min.js"></script>
+
+    <link href="/static/common/sweetalert/sweetalert.css" rel="stylesheet">
+
+
+{% end %}
+
+
+{% block page_heading %}
+        <!-- page heading start-->
+        <div class="page-heading">
+            <h3>
+                编辑文档 <small>Subtext for header</small>
+            </h3>
+            <ul class="breadcrumb">
+                <li>
+                    <a href="#">Dashboard</a>
+                </li>
+                <li>
+                    <a href="#">Extra Pages</a>
+                </li>
+                <li class="active">编辑文档 </li>
+            </ul>
+        </div>
+        <!-- page heading end-->
+{% end %}
+
+
+{% block body_wrapper %}
+    <div class="wrapper">
+    	<div class="content-box">
+            <div class="container">
+                <form action="" class="form">
+                    <!-- 标题 -->
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon" >标题</span>
+                            <input type="text" class="form-control" placeholder="标题" id='title-input' value="{{article.title}}" data-article-id="{{article.id}}">
+                            <span class="input-group-addon btn btn-danger" id='submit-article-btn'>修改文章</span>
+                        </div>
+                    </div>
+                    <!-- 分类 -->
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon">分类</span>
+                            <select name="" id="category-select" class="form-control">
+                                {% for category in categorys %}
+								    <option value="{{category.id}}" {% if article.category.id == category.id %}selected="selected"{% end %}>{{category.name}}</option>
+							    {% end %}
+                            </select>
+                        </div>
+                    </div>
+                    <!-- 描述 -->
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon">摘要</span>
+                            <input type="text" class="form-control" placeholder="摘要" id="desc-input" value="{{ article.desc }}">
+                        </div>
+                    </div>
+
+                    <!-- 标签 -->
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon">标签</span>
+                            <div class="form-control" id='tag-box'>
+                            	{% for tag in tags %}
+                                    <label for="" class="checkbox-inline">
+                                        <input type="checkbox" value="{{tag.id}}" class="tag-checkbox"
+                                        {% if tag in article.tags %}
+                                            checked="checked"
+                                        {% end %}> {{tag.name}}
+                                    </label>
+                                {% end %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- simditor编辑器的输入区 -->
+                    <div class="form-group">
+                        <textarea id="simditor" placeholder="正文...">{{article.content}}</textarea>
+                    </div>
+
+                    <!-- 上传图片 -->
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon">图片</span>
+                            <input type="text" class="form-control" placeholder="缩略图地址" id='thumbnail-input' value="{{ article.thumbnail }}">
+                        </div>
+                    </div>
+                    <!-- 上传图片栏 -->
+
+
+                    <!-- 上传图片 -->
+                    <div class="row">
+                        <div class="col-sm-12">
+                          <section class="panel">
+                                <header class="panel-heading">
+                                    <form method="post" action="/add_article_img" enctype="multipart/form-data">
+                                        <input id="input_files_id"  type="file"  accept="image/gif, image/jpeg" multiple="multiple"  name="myfilename"/><br>
+                                        <button  id="upload_btn" type="button" class="btn btn-primary btn-sm btn-group"><i class="fa fa-upload"></i> 上传文件</button>
+                                    </form>
+                                </header>
+                                <div class="panel-body">
+                                    <div id="gallery" class="media-gal">
+                                         <div class='show' id="show"></div>
+                                    </div>
+                                </div>
+                                 <div class='show_path' id="show_path"></div>
+                            </section>
+                        </div>
+                    </div>
+                </form>
+            </div>
+	    </div>
+    </div>
+{% end %}
+
+
+{% block end %}
+        <script src="/static/common/sweetalert/sweetalert.min.js"></script>
+        <script src="/static/js/article/add_article.js"></script>
+
+{% end %}

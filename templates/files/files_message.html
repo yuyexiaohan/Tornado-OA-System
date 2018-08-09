@@ -1,0 +1,87 @@
+{% extends '../base/main_user_base.html' %}
+
+{% block head %}
+
+    <!-- alert插件的样式文件 -->
+    <link href="/static/common/sweetalert/sweetalert.css" rel="stylesheet">
+
+{% end %}
+
+
+{% block page_heading %}
+        <!-- page heading start-->
+        <div class="page-heading">
+            <h3>
+                文件详情 <small>Subtext for header</small>
+            </h3>
+            <ul class="breadcrumb">
+                <li>
+                    <a href="#">Dashboard</a>
+                </li>
+                <li>
+                    <a href="#">Extra Pages</a>
+                </li>
+                <li class="active">文件详情 </li>
+            </ul>
+        </div>
+        <!-- page heading end-->
+{% end %}
+
+
+{% block body_wrapper %}
+    <div class="wrapper">
+            <div class="row">
+            <div class="col-sm-12">
+                <section class="panel">
+                    <p>文件ID： {{ files.id }}  </p>
+                    <p>文件名： {{ files.filename }}  </p>
+                    <p>文件创建:  {{ files.createtime }}  </p>
+                    <p>链接用户:  {% for user in files.files_users %}
+                                    {{user.name }}-----{{ len(files.files_users) }}
+                                {% end %}
+                    </p>
+                    <p>当前用户: {{ current_user.name }}
+
+                    </p>
+                    <p>文件uuid:  {{ files.uuid }}  </p>
+                    <p>文件路径:  {% if files.uuid.find('.') != -1 %}http://192.168.201.135:8000/images/{% else %}http://oq54v29ct.bkt.clouddn.com/{% end %}{{ files.uuid }}  </p>
+                    <p>文件长度:  {{ files.content_length }}  </p>
+
+
+                    <!-- 图片文件预览 -->
+                    {% if files.filename.split('.')[-1] in ['jpg','bmp','png'] %}
+                        <p>文件预览：</p>
+                        <img style="width: 500px;height: 400px;" src="{% if files.uuid.find('.') != -1 %}/images/{% else %}http://oq54v29ct.bkt.clouddn.com/{% end %}{{ files.uuid }}">
+
+                     <!-- 音频文件预览 -->
+                    {% elif files.filename.split('.')[-1] in ['mp3'] %}
+                        <p>文件预览：</p>
+                        <audio controls="controls" height="100" width="100">
+                          <source src="/images/{{ files.uuid }}" type="audio/mp3" />
+                          <source src="/images/{{ files.uuid }}" type="audio/ogg" />
+                        <embed height="500" width="400" src="song.mp3" />
+                        </audio>
+
+                    <!-- 视频文件预览 -->
+                    {% elif files.filename.split('.')[-1] in ['mp4','ogg','webm'] %}
+                        <p>文件预览：</p>
+                        <video width="500" height="400" controls="controls">
+                          <source src="/images/{{ files.uuid }}" type="video/mp4" />
+                          <source src="/images/{{ files.uuid }}" type="video/ogg" />
+                          <source src="/images/{{ files.uuid }}" type="video/webm" />
+                          <object data="/images/{{ files.uuid }}" width="500" height="400">
+                            <embed src="/images/{{ files.uuid }}" width="500" height="400" />
+                          </object>
+                        </video>
+                    {% end %}
+                </section>
+            </div>
+        </div>
+    </div>
+{% end %}
+
+
+{% block end %}
+        <!-- alert插件的js文件 -->
+        <script src="/static/common/sweetalert/sweetalert.min.js"></script>
+{% end %}

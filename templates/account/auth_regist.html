@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="ThemeBucket">
+    <link rel="shortcut icon" href="#" type="image/png">
+
+    <title>Registration 注册界面</title>
+
+    <link href="/static/common/css/style.css" rel="stylesheet">
+    <link href="/static/common/css/style-responsive.css" rel="stylesheet">
+     <link href="/static/common/sweetalert/sweetalert.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/static/common/js/html5shiv.js"></script>
+    <script src="/static/common/js/respond.min.js"></script>
+    <![endif]-->
+      <style type="text/css">
+        .form-signin .btn-login {
+            background: #6582aa;
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: normal;
+            font-family: 'Open Sans', sans-serif;
+            margin: 20px 0 5px;
+            padding: 5px;
+            -webkit-transition: all 0.3s;
+            -moz-transition: all 0.3s;
+            transition: all 0.3s;
+            font-size: 30px;
+        }
+
+        .form-signin .btn-login:hover {
+            background: #688ac2;
+            -webkit-transition: all 0.3s;
+            -moz-transition: all 0.3s;
+            transition: all 0.3s;
+        }
+        .form-group.input-group span{
+            height: 50px;
+        }
+    </style>
+</head>
+
+<body class="login-body">
+
+<div class="container">
+    <form class="form-signin" action="/auth/user_regist" method="post">
+         {% module xsrf_form_html() %}
+        <div class="form-signin-heading text-center">
+            <h1 class="sign-title">{{message}}</h1>
+            <img style="width:300px;height: auto" src="/static/common/images/blog/blog-wide-img.jpg" alt=""/>
+        </div>
+        <div class="login-wrap">
+            <p> 在下面输入您的帐户详细信息</p>
+            <div class="form-group">
+                <div  class="input-group pull-left">
+                    <input  type="text" placeholder="*手机号码" class="form-control mobile " name="mobile" value="">
+                    <span class="input-group-addon btn btn-default" id="captcha-btn">获取验证码</span>
+                </div>
+                <span class="mobile-message" ></span>
+            </div>
+            <input type="hidden" class="captcha-code" name="code" value="aaaa">
+            <input type="text" placeholder="*短信验证码" class="form-control"   name="mobile_captcha">
+            <input type="text" autofocus="" placeholder="*昵称" class="form-control" name="name">
+            <input type="password" placeholder="*密码" class="form-control"  name="password1">
+            <input type="password" placeholder="*确认密码" class="form-control" name="password2">
+            <div class="pull-left">
+                <input  type="text"  placeholder="*图形验证码" class="form-control captcha" name="captcha">
+            </div>
+            <a  class="pull-right" id="a_code" href="javascript:;" > <img class="get_image_code"  alt=""></a>
+
+            <label class="checkbox">
+                <input type="checkbox" value="agree" name="agree"> 我同意服务条款和隐私政策
+            </label>
+            <button type="submit" class="btn btn-lg btn-login btn-block">
+                <i class="fa fa-check"></i>
+            </button>
+            <div class="registration">已经注册的<a href="/auth/user_login" class="">登录</a></div>
+        </div>
+    </form>
+</div>
+
+
+
+<!-- Placed js at the end of the document so the pages load faster -->
+
+<!-- Placed js at the end of the document so the pages load faster -->
+<script src="/static/common/js/jquery-1.10.2.min.js"></script>
+<script src="/static/common/js/bootstrap.min.js"></script>
+<script src="/static/common/js/modernizr.min.js"></script>
+<script src="/static/common/sweetalert/sweetalert.min.js"></script>
+<script src="/static/js/account/create_captcha.js"></script>
+<script src="/static/js/account/auth_regist.js"></script>
+{#   <script src="/static/js/jquery.backstretch.min.js"></script>#}
+{#    <script type="text/javascript">#}
+{#        $(document).ready(function(){#}
+{#        $.backstretch("/static/images/003.jpg");#}
+{#        });#}
+{#    </script>#}
+</body>
+</html>

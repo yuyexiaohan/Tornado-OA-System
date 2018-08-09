@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="ThemeBucket">
+    <link rel="shortcut icon" href="#" type="image/png">
+    <title>Sharing links</title>
+    <link href="/static/common/css/style.css" rel="stylesheet">
+    <link href="/static/common/css/style-responsive.css" rel="stylesheet">
+    <link href="/static/common/sweetalert/sweetalert.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/static/common/js/html5shiv.js"></script>
+    <script src="/static/common/js/respond.min.js"></script>
+     <!-- alert插件的样式文件 -->
+</head>
+<body>
+<div class="wrapper">
+            <div class="row">
+            <div class="col-sm-12">
+                <section class="panel">
+                    <header class="panel-heading">
+                            文件列表
+                            <span class="tools pull-right">
+                                <a href="javascript:;" class="fa fa-chevron-down"></a>
+                                <a href="javascript:;" class="fa fa-times"></a>
+                             </span>
+                    </header>
+                    <div class="panel-body">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>文件名</th>
+                                <th>建立日期</th>
+                                <th>文件类型</th>
+                                <th>文件长度</th>
+                                <th>是否删除</th>
+                                <th>编辑</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for fi in files %}
+                                        <tr>
+                                            <td>{{fi.id}}</td>
+                                            <td>{{fi.filename}}</td>
+                                            <td>{{fi.createtime}}</td>
+                                            <td>{{fi.content_type}}</td>
+                                            <td>{{fi.content_length}}</td>
+                                            <td>{{fi.locked}}</td>
+                                            <td>
+                                                <a href="/files/files_message?uuid={{ fi.uuid }}" >详情</a>
+                                                <a href="/files/files_download?uuid={{fi.uuid}}" >下载</a>
+                                                <a href="/files/files_save_sharing_links?uuid={{uuid}}" >保存到我的网盘</a>
+                                            </td>
+                                        </tr>
+                                {% end %}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+<!-- Placed js at the end of the document so the pages load faster -->
+<script src="/static/common/js/jquery-1.10.2.min.js"></script>
+<script src="/static/common/js/bootstrap.min.js"></script>
+<script src="/static/common/js/modernizr.min.js"></script>
+<!-- alert插件的js文件 -->
+<script src="/static/common/sweetalert/sweetalert.min.js"></script>
+<script src="/static/js/files/file_auth_sharing_links.js"></script>
+
+
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,72 @@
+{% extends '../base/main_user_base.html' %}
+
+{% block head %}
+
+    <!-- alert插件的样式文件 -->
+    <link href="/static/common/sweetalert/sweetalert.css" rel="stylesheet">
+
+{% end %}
+
+
+{% block page_heading %}
+        <!-- page heading start-->
+        <div class="page-heading">
+            <h3>
+                文件上传 <small>Subtext for header</small>
+            </h3>
+            <ul class="breadcrumb">
+                <li>
+                    <a href="#">Dashboard</a>
+                </li>
+                <li>
+                    <a href="#">Extra Pages</a>
+                </li>
+                <li class="active">文件上传 </li>
+            </ul>
+        </div>
+        <!-- page heading end-->
+{% end %}
+
+
+{% block body_wrapper %}
+    <div class="wrapper">
+    	<div class="content-box">
+            <div class="container">
+                <form action="" class="form">
+
+
+                    <img style="height: 80px;width:80px;" src="/static/images/useravatars/{{ current_user.avatar }}"><br/>
+
+                    <!-- 上传文件栏 -->
+                    <div class="row">
+                        <div class="col-sm-12">
+                          <section class="panel">
+                                <header class="panel-heading">
+                                    <form method="post" action="/add_article_img" enctype="multipart/form-data">
+                                        <input id="input_files_id"  type="file"   multiple="multiple"  name="myfilename"/><br>
+                                        <button  id="upload_btn" type="button" class="btn btn-primary btn-sm btn-group"><i class="fa fa-upload"></i> 上传文件</button>
+                                    </form>
+                                </header>
+                                <div class="panel-body">
+                                    <div id="gallery" class="media-gal">
+                                         <div class='show' id="show"></div>
+                                    </div>
+                                </div>
+                                 <div class='show_path' id="show_path"></div>
+                            </section>
+                        </div>
+                    </div>
+                    <!-- 上传文件栏结束 -->
+                </form>
+            </div>
+	    </div>
+    </div>
+{% end %}
+
+
+{% block end %}
+        <!-- alert插件的js文件 -->
+        <script src="/static/common/sweetalert/sweetalert.min.js"></script>
+        <script src="/static/js/files/file_upload.js"></script>
+
+{% end %}

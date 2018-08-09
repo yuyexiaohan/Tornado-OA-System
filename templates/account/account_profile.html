@@ -1,0 +1,39 @@
+{% extends '../base/main_user_base.html' %}
+
+<!-- page heading start-->
+    {% block page_heading %}
+            <div class="page-heading">
+                <h3>
+                    个人信息
+                </h3>
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="#">Dashboard</a>
+                    </li>
+                    <li class="active"> My Dashboard </li>
+                </ul>
+            </div>
+    {% end %}
+<!-- page heading end-->
+
+
+<!--body wrapper start-->
+    {% block body_wrapper %}
+        <div class="wrapper">
+            {% if message %}
+                <p style="background-color: #ff6a6a">{{ message }}</p>
+            {% end %}
+        {# current_user 当前用户 #}
+        {% if current_user %}
+            个人信息<br>
+            用户名：{{ current_user.name }}<br>
+            邮箱：{{ current_user.email }}<br>
+            首次登录时间：{{ current_user.createtime }}<br>
+            账户更新时间：{{ current_user.update_time }}<br>
+            头像:<br>
+            <img style="height: 100px;width: 150px;" src="/static/images/useravatars/{{ current_user.avatar }}"><br>
+            <a href="/account/user_edit">编辑信息</a>
+        {% end %}
+        </div>
+    {% end %}
+<!--body wrapper end-->

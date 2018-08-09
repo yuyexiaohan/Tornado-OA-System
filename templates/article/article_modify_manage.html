@@ -1,0 +1,125 @@
+{% extends '../base/main_user_base.html' %}
+
+{% block head %}
+    <link href="/static/common/sweetalert/sweetalert.css" rel="stylesheet">
+{% end %}
+
+
+{% block page_heading %}
+        <!-- page heading start-->
+        <div class="page-heading">
+            <h3>
+                文章管理 <small>Subtext for header</small>
+            </h3>
+            <ul class="breadcrumb">
+                <li>
+                    <a href="#">Dashboard</a>
+                </li>
+                <li>
+                    <a href="#">Extra Pages</a>
+                </li>
+                <li class="active">文章管理 </li>
+            </ul>
+        </div>
+        <!-- page heading end-->
+{% end %}
+
+
+{% block body_wrapper %}
+
+
+{% for category, message in get_flashed_messages(with_categories=True) %}
+ {% if category == 'error' %}
+ <script type = "text/javascript">
+     swal({
+         'title': '错误',
+         'text': '{{ message }}',
+         'type': 'error',
+         'showCancelButton': false,
+         'showConfirmButton': false,
+         'timer': 2000
+     });
+ </script>
+ {% elif category == 'success' %}
+ <script
+     type = "text/javascript" >
+     swal({
+         'title': '正确',
+         'text': '{{ message }}',
+         'type': 'success',
+         'showCancelButton': false,
+         'showConfirmButton': false,
+         'timer': 2000,
+     })
+ </script>
+ {% end %}
+ {% end %}
+
+
+
+    <div class="wrapper">
+          <div class="row">
+         <!-- 文章列表 -->
+
+                <div class="col-sm-12">
+                    <section class="panel">
+                        <header class="panel-heading">
+                            <p style="width: 100px;">
+                                <span class="input-group-addon btn btn-info" id="tag-btn">添加标签</span>
+                            </p>
+
+                        </header>
+                        <div class="panel-body">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>标题</th>
+                                    <th>提交用户</th>
+                                    <th>摘要</th>
+                                    <th>分类</th>
+                                    <th>标签</th>
+                                    <th>缩略图</th>
+                                    <th>创建时间</th>
+                                    <th>编辑</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {% for article in articles %}
+                                        <tr>
+                                            <td>{{article.id}}</td>
+                                            <td>{{article.title}}</td>
+                                            <td>{{article.user.name}}</td>
+                                            <td>{{article.desc}}</td>
+                                            <td>{{article.category.name}}</td>
+                                            <td>{% for tag in article.tags %}
+                                                    {{tag.name}}<br/>
+                                                {% end %}
+                                            </td>
+                                            <td>{{article.thumbnail}}</td>
+                                            <td>{{article.createtime}}</td>
+                                            <td>
+                                                <a href="/article/article?id={{ article.id }}" >查看</a>
+                                                <a href="/article/article_modify?id={{ article.id }}" >编辑</a>
+                                                <a href="/article/article_delete?id={{ article.id }}" >删除</a>
+                                            </td>
+                                        </tr>
+                                    {% end %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+            <!-- 文章列表结束 -->
+        </div>
+
+    </div>
+
+{% end %}
+
+
+
+{% block end %}
+        <script src="/static/common/sweetalert/sweetalert.min.js"></script>
+        <script src="/static/js/article/article_manage.js"></script>
+{% end %}

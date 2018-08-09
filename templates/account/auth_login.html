@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="ThemeBucket">
+    <link rel="shortcut icon" href="#" type="image/png">
+
+    <title>Login</title>
+
+    <link href="/static/common/css/style.css" rel="stylesheet">
+    <link href="/static/common/css/style-responsive.css" rel="stylesheet">
+    <link href="/static/common/sweetalert/sweetalert.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/static/common/js/html5shiv.js"></script>
+    <script src="/static/common/js/respond.min.js"></script>
+    <![endif]-->
+    <style type="text/css">
+        .form-signin .btn-login {
+            background: #6582aa;
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: normal;
+            font-family: 'Open Sans', sans-serif;
+            margin: 20px 0 5px;
+            padding: 5px;
+            -webkit-transition: all 0.3s;
+            -moz-transition: all 0.3s;
+            transition: all 0.3s;
+            font-size: 30px;
+        }
+
+        .form-signin .btn-login:hover {
+            background: #688ac2;
+            -webkit-transition: all 0.3s;
+            -moz-transition: all 0.3s;
+            transition: all 0.3s;
+        }
+    </style>
+</head>
+<body class="login-body">
+<div class="container">
+    <form class="form-signin" method="post" action="/auth/user_login" >
+        {# 加入请求的随机字符串，用于js中的请求头的跨域请求 #}
+        {% module xsrf_form_html() %}
+        <div class="form-signin-heading text-center">
+            <h1 class="sign-title">用户登录</h1>
+            <img style="width:300px;height: auto" src="/static/common/images/blog/blog-wide-img.jpg" alt=""/>
+        </div>
+        <div class="login-wrap">
+            <input type="text" name="name" class="form-control" placeholder="用户名/邮箱" autofocus id="name">
+            <input type="password" name="password" class="form-control" placeholder="密码" id="password">
+            <input type="hidden" class="captcha-code" name="code" value="aaaa" id="code">
+            <div class="pull-left">
+                <input  type="text"  placeholder="*图形验证码" class="form-control captcha" name="captcha" id="captcha">
+            </div>
+            <a class="pull-right" id="a_code" href="javascript:;" > <img class="get_image_code"  alt=""></a>
+
+
+            <button class="btn btn-lg btn-login btn-block" id="submit_login" type="submit">
+                <i class="fa fa-check"></i>
+            </button>
+
+            <div class="registration">
+                还不是会员吗?
+                <a class="" href="/auth/user_regist">
+                    点击注册
+                </a>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+<!-- Placed js at the end of the document so the pages load faster -->
+
+<!-- Placed js at the end of the document so the pages load faster -->
+    <script src="/static/common/js/jquery-1.10.2.min.js"></script>
+    <script src="/static/common/js/bootstrap.min.js"></script>
+    <script src="/static/common/js/modernizr.min.js"></script>
+    <script src="/static/common/sweetalert/sweetalert.min.js"></script>
+    <script src="/static/js/account/create_captcha.js"></script>
+    <script src="/static/js/account/auth_login.js"></script>
+
+
+{#    <script src="/static/js/jquery.backstretch.min.js"></script>#}
+{#    <script type="text/javascript">#}
+{#        $(document).ready(function(){#}
+{#        $.backstretch("/static/images/003.jpg");#}
+{#        });#}
+{#    </script>#}
+
+
+</body>
+</html>

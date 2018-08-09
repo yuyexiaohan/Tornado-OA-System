@@ -1,0 +1,169 @@
+{% extends '../base/main_user_base.html' %}
+
+{% block head %}
+    <!-- alert插件的样式文件 -->
+    <link href="/static/common/sweetalert/sweetalert.css" rel="stylesheet">
+
+{% end %}
+
+
+{% block page_heading %}
+        <!-- page heading start-->
+        <div class="page-heading">
+            <h3>
+                文件列表 <small>Subtext for header</small>
+            </h3>
+            <ul class="breadcrumb">
+                <li>
+                    <a href="#">Dashboard</a>
+                </li>
+                <li>
+                    <a href="#">Extra Pages</a>
+                </li>
+                <li class="active">文件列表 </li>
+            </ul>
+        </div>
+        <!-- page heading end-->
+{% end %}
+
+
+{% block body_wrapper %}
+    <div class="wrapper">
+        <!-- 文件列表结束 -->
+            <div class="row">
+            <div class="col-sm-12">
+                <section class="panel">
+                    <header class="panel-heading">
+                        文件列表  <a href="/files/files_upload">上传文件</a>
+                            <span class="tools pull-right">
+                                <a href="javascript:;" class="fa fa-chevron-down"></a>
+                                <a href="javascript:;" class="fa fa-times"></a>
+                             </span>
+                    </header>
+                    <div class="panel-body">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>文件名</th>
+                                <th>建立日期</th>
+                                <th>文件类型</th>
+                                <th>文件长度</th>
+                                <th>是否删除</th>
+                                <th>编辑</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for fi in files %} {# 100   10  1  1-10 2 11-20   #}
+                                        <tr>
+                                            <td>{{fi.id}}</td>
+                                            <td>{{fi.filename}}</td>
+                                            <td>{{fi.createtime}}</td>
+                                            <td>{{fi.content_type}}</td>
+                                            <td>{{fi.content_length}}</td>
+                                            <td>{{fi.locked}}</td>
+                                            <td>
+                                                <a href="/files/files_message?uuid={{ fi.uuid }}" >详情</a>
+                                                <a href="/files/files_delete?uuid={{ fi.uuid }}" >删除</a>
+                                                <a href="/files/files_down?uuid={{fi.uuid}}" >下载</a>
+                                                <a href="/files/files_create_sharing_links?uuid={{fi.uuid}}" >分享</a>
+                                            </td>
+                                        </tr>
+                                {% end %}
+                            </tbody>
+                        </table>
+
+
+
+                          <div class="">
+                              <ul class="pagination">
+                                  <li><a href="{{ files_page['pre_page']}}">«</a></li>
+                                  {% if files_page['current_page'] >3 %}
+                                   <li><a href="1">首页</a></li>
+                                  <li><a href="{{ files_page['pre_page']}}">...</a></li>
+                                  {% end %}
+
+                                  {% for index in files_page['pages'] %}
+                                    <li {% if index==files_page['current_page'] %}class="active"{% end %}><a href="{{ index }}" >{{ index }}</a></li>
+                                  {% end %}
+
+                                  {% if files_page['current_page'] <= files_page['count'] -3 %}
+                                  <li><a href="{{ files_page['next_page']}}">...</a></li>
+                                  <li><a href="{{ files_page['count']}}">尾页</a></li>
+                                  {% end %}
+
+                                  <li><a href="{{ files_page['next_page']}}">»</a></li>
+                              </ul>
+
+                          </div>
+                        共{{ files_page['count'] }}页|第{{ files_page['current_page'] }}页
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- 文件列表结束 -->
+        <!-- 回收站 -->
+            <div class="row">
+            <div class="col-sm-12">
+                <section class="panel">
+                    <header class="panel-heading">
+                            回收站
+                            <span class="tools pull-right">
+                                <a href="javascript:;" class="fa fa-chevron-down"></a>
+                                <a href="javascript:;" class="fa fa-times"></a>
+                             </span>
+                    </header>
+                    <div class="panel-body">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>文件名</th>
+                                <th>建立日期</th>
+                                <th>文件类型</th>
+                                <th>文件长度</th>
+                                <th>是否删除</th>
+                                <th>编辑</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for fi in files_del %}
+                                        <tr>
+                                            <td>{{fi.id}}</td>
+                                            <td>{{fi.filename}}</td>
+                                            <td>{{fi.createtime}}</td>
+                                            <td>{{fi.content_type}}</td>
+                                            <td>{{fi.content_length}}</td>
+                                            <td>{{fi.locked}}</td>
+                                            <td>
+                                                <a href="/files/files_message?uuid={{ fi.uuid }}" >详情</a>
+                                                <a href="/files/files_delete_final?uuid={{ fi.uuid }}" >彻底删除</a>
+                                                <a href="/files/files_recovery?uuid={{ fi.uuid }}" >恢复</a>
+
+                                            </td>
+                                        </tr>
+                                {% end %}
+                            </tbody>
+                        </table>
+
+                        <!-- 分页 -->
+
+                        <!-- 分页结束 -->
+                    </div>
+                </section>
+            </div>
+        </div>
+        <!-- 回收站结束 -->
+
+
+    </div>
+{% end %}
+
+
+{% block end %}
+        <!-- alert插件的js文件 -->
+        <script src="/static/common/sweetalert/sweetalert.min.js"></script>
+        <script src="/static/js/file/file_upload.js"></script>
+
+{% end %}

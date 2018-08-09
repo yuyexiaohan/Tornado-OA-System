@@ -1,0 +1,368 @@
+{% extends '../base/main_user_base.html' %}
+
+{% block head %}
+<link href="/static/common/sweetalert/sweetalert.css" rel="stylesheet">
+<script src="/static/common/sweetalert/sweetalert.min.js"></script>
+{% end %}
+
+
+{% block page_heading %}
+        <!-- page heading start-->
+        <div class="page-heading">
+            <h3>
+                权限管理 <small>Subtext for header</small>
+            </h3>
+            <ul class="breadcrumb">
+                <li>
+                    <a href="#">Dashboard</a>
+                </li>
+                <li>
+                    <a href="#">Extra Pages</a>
+                </li>
+                <li class="active">权限管理 </li>
+            </ul>
+        </div>
+        <!-- page heading end-->
+{% end %}
+
+
+{% block body_wrapper %}
+{#    <div class="wrapper">#}
+{##}
+{##}
+ {% for category, message in get_flashed_messages(with_categories=True) %}
+ {% if category == 'error' %}
+ <script type = "text/javascript">
+     swal({
+         'title': '错误',
+         'text': '{{ message }}',
+         'type': 'error',
+         'showCancelButton': false,
+         'showConfirmButton': false,
+         'timer': 2000
+     });
+ </script>
+ {% elif category == 'success' %}
+ <script
+     type = "text/javascript" >
+     swal({
+         'title': '正确',
+         'text': '{{ message }}',
+         'type': 'success',
+         'showCancelButton': false,
+         'showConfirmButton': false,
+         'timer': 2000,
+     })
+ </script>
+ {% end %}
+ {% end %}
+
+
+
+                    <header class="panel-heading">
+                        <p style="width: 100px;">
+                                <span class="input-group-addon btn btn-info" id="tag-btn">为用户添加角色</span>
+                        </p>
+                        <form class= "login" method="post" action="/permission/user_add_role">
+                            {% module xsrf_form_html() %}
+                              <p>用户ID<input type="text" name="userid">  角色ID<input type="text" name="roleid">
+                                <input type="submit"></p>
+                        </form>
+
+                        <p style="width: 100px;">
+                                <span class="input-group-addon btn btn-info" id="tag-btn">为角色添加权限</span>
+                        </p>
+                        <form class= "login" method="post" action="/permission/role_add_permission">
+                             {% module xsrf_form_html() %}
+                              <p>角色ID<input type="text" name="roleid">  权限ID<input type="text" name="permissionid">
+                                <input type="submit"></p>
+                        </form>
+                    </header>
+
+           <!-- 角色列表 -->
+          <div class="row">
+            <div class="col-sm-12">
+                <section class="panel">
+                    <header class="panel-heading">
+                        <p style="width: 100px;">
+                            <span class="input-group-addon btn btn-info" id="tag-btn">添加角色</span>
+                        </p>
+
+
+                        <form class= "login" method="post" action="/permission/add_role">
+                            {% module xsrf_form_html() %}
+                                <p>角色名<input type="text" name="name">
+                                <input type="submit"></p>
+                        </form>
+
+
+
+                    </header>
+                    <div class="panel-body">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>角色名</th>
+                                <th>编辑</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for role in roles %}
+                                    <tr>
+                                        <td>{{role.id}}</td>
+                                        <td>{{role.name}}</td>
+
+                                        <td>
+                                            <a href="/permission/del_role?id={{ role.id }}" >删除</a>
+                                        </td>
+                                    </tr>
+                                {% end %}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+          </div>
+          <!-- 角色列表结束 -->
+
+          <!-- 权限列表 -->
+           <div class="row">
+             <div class="col-sm-12">
+                <section class="panel">
+                    <header class="panel-heading">
+                        <p style="width: 100px;">
+                                <span class="input-group-addon btn btn-info" id="tag-btn">添加权限</span>
+                        </p>
+                       <form class= "login" method="post" action="/permission/add_permission">
+                           {% module xsrf_form_html() %}
+                                <p>权限名<input type="text" name="name">
+                                权限码<input type="text" name="strcode">
+                                <input type="submit"></p>
+                       </form>
+                    </header>
+                    <div class="panel-body">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>权限名</th>
+                                <th>权限码</th>
+                                <th>编辑</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for permission in permissions %}
+                                    <tr>
+                                        <td>{{permission.id}}</td>
+                                        <td>{{permission.name}}</td>
+                                        <td>{{permission.strcode}}</td>
+                                        <td>
+                                            <a href="/permission/del_permission?id={{ permission.id }}" >删除</a>
+                                        </td>
+                                    </tr>
+                                {% end %}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+             </div>
+          </div>
+          <!-- 权限列表结束 -->
+
+          <!-- 菜单列表 -->
+         <div class="row">
+            <div class="col-sm-12">
+                <section class="panel">
+                    <header class="panel-heading">
+                        <p style="width: 100px;">
+                                <span class="input-group-addon btn btn-info" id="tag-btn">为菜单添加权限</span>
+                        </p>
+                       <form class= "login" method="post" action="/permission/add_menu">
+                           {% module xsrf_form_html() %}
+                                <p>菜单名<input type="text" name="name">
+                                权限ID<input type="text" name="permissionid">
+                                <input type="submit"></p>
+                       </form>
+                    </header>
+                    <div class="panel-body">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>菜单名</th>
+                                <th>权限码</th>
+                                <th>编辑</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for menu in menus %}
+                                    <tr>
+                                        <td>{{menu.id}}</td>
+                                        <td>{{menu.name}}</td>
+                                        <td>{% if menu.permission %}{{menu.permission.strcode}}{%end%}</td>
+                                        <td>
+                                            <a href="/permission/del_menu?menuid={{ menu.id }}" >删除</a>
+                                        </td>
+                                    </tr>
+                                {% end %}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+          </div>
+         <!-- 菜单列表结束 -->
+        <!-- 视图列表 -->
+         <div class="row">
+            <div class="col-sm-12">
+                <section class="panel">
+                    <header class="panel-heading">
+                        <p style="width: 100px;">
+                                <span class="input-group-addon btn btn-info" id="tag-btn">为处理器添加权限</span>
+                        </p>
+                       <form class= "login" method="post" action="/permission/add_handler">
+                           {% module xsrf_form_html() %}
+                                <p>视图名<input type="text" name="name">
+                                权限ID<input type="text" name="permissionid">
+                                <input type="submit"></p>
+                       </form>
+                    </header>
+                    <div class="panel-body">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>视图名</th>
+                                <th>权限码</th>
+                                <th>编辑</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for handler in handlers %}
+                                    <tr>
+                                        <td>{{handler.id}}</td>
+                                        <td>{{handler.name}}</td>
+                                        <td>{{handler.permission.strcode}}</td>
+                                        <td>
+                                            <a href="/permission/del_handler?handlerid={{ handler.id }}" >删除</a>
+                                        </td>
+                                    </tr>
+                                {% end %}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+          </div>
+         <!-- 视图列表结束 -->
+          <!-- 用户权限列表 -->
+         <div class="row">
+            <div class="col-sm-12">
+                <section class="panel">
+                    <header class="panel-heading">
+                                用户权限列表(用户属于哪个角色，这个角色拥有什么权限)
+                    </header>
+                    <div class="panel-body">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>用户名</th>
+                                <th>角色</th>
+                                <th>权限</th>
+                                <th>编辑</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for user in users %}
+                                    <tr>
+                                        <td>{{user.id}}</td>
+                                        <td>{{user.name}}</td>
+                                        <td>
+                                            {% for role in user.roles %}
+                                                {{role.name}}<br/>
+                                            {% end %}
+                                        </td>
+                                        <td>
+                                            {% for role in user.roles %}
+                                                {% for permission in role.permissions %}
+                                                    {{ permission.id }}:{{permission.name}}<br/>
+                                                {% end %}
+                                            {% end %}
+                                        </td>
+
+                                        <td>
+                                            <a href="/permission/del_user_role?userid={{ user.id }}" >删除</a>
+                                        </td>
+                                    </tr>
+                                {% end %}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+          </div>
+         <!-- 用户权限列表结束 -->
+         <!-- 添加用户到研发部门 -->
+            <div class="row">
+             <div class="col-sm-12">
+                <section class="panel">
+                    <header class="panel-heading">
+                        <p style="width: 100px;">
+                                <span class="input-group-addon btn btn-info" id="tag-btn">添加用户到研发部门</span>
+                        </p>
+                       <form class= "login" method="post" action="/permission/add_user_dev">
+                           {% module xsrf_form_html() %}
+                                <p>用户ID<input type="text" name="userid"><p>研发团队(研发员工角色ID)<input type="text" name="roleid">
+                                <input type="submit"></p>
+                       </form>
+                        研发部员工列表
+                    </header>
+                    <div class="panel-body">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>用户名</th>
+                                <th>角色</th>
+                                <th>权限</th>
+                                <th>编辑</th>
+                            </tr>
+                            </thead>
+                             <tbody>
+                                    {% for user in dev_users %}
+                                        <tr>
+                                            <td>{{user.id}}</td>
+                                            <td>{{user.name}}</td>
+                                            <td>
+                                                {% for role in user.roles %}
+                                                    {{role.name}}<br/>
+                                                {% end %}
+                                            </td>
+                                            <td>
+                                                {% for role in user.roles %}
+                                                    {% for permission in role.permissions %}
+                                                        {{ permission.id }}:{{permission.name}}<br/>
+                                                    {% end %}
+                                                {% end %}
+                                            </td>
+
+                                            <td>
+                                                <a href="/permission/del_user_dev_role?userid={{ user.id }}&roleid={{ dev_roleid }}" >删除</a>
+                                            </td>
+                                        </tr>
+                                    {% end %}
+                             </tbody>
+                        </table>
+                    </div>
+                </section>
+             </div>
+          </div>
+         <!-- 添加用户到研发部门结束 -->
+        </div>
+{% end %}
+
+{% block end %}
+
+{% end %}

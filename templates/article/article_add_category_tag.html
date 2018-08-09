@@ -1,0 +1,152 @@
+{% extends '../base/main_user_base.html' %}
+
+{% block head %}
+    <link href="/static/common/sweetalert/sweetalert.css" rel="stylesheet">
+    <script src="/static/common/sweetalert/sweetalert.min.js"></script>
+{% end %}
+
+
+{% block page_heading %}
+        <!-- page heading start-->
+        <div class="page-heading">
+            <h3>
+                文章管理 <small>Subtext for header</small>
+            </h3>
+            <ul class="breadcrumb">
+                <li>
+                    <a href="#">Dashboard</a>
+                </li>
+                <li>
+                    <a href="#">Extra Pages</a>
+                </li>
+                <li class="active">文章管理 </li>
+            </ul>
+        </div>
+        <!-- page heading end-->
+{% end %}
+
+
+{% block body_wrapper %}
+    <div class="wrapper">
+
+
+         {% for category, message in get_flashed_messages(with_categories=True) %}
+             {% if category == 'error' %}
+                 <script type = "text/javascript">
+                     swal({
+                         'title': '错误',
+                         'text': '{{ message }}',
+                         'type': 'error',
+                         'showCancelButton': false,
+                         'showConfirmButton': false,
+                         'timer': 2000
+                     });
+                 </script >
+             {% elif category == 'success' %}
+                 <script type = "text/javascript">
+                     swal({
+                         'title': '正确',
+                         'text': '{{ message }}',
+                         'type': 'success',
+                         'showCancelButton': false,
+                         'showConfirmButton': false,
+                         'timer': 2000,
+                     })
+                 </script >
+             {% end %}
+         {% end %}
+
+
+
+
+
+
+
+
+
+
+          <div class="row">
+
+          <!-- 添加分类 -->
+            <div class="col-sm-12">
+                <section class="panel">
+                    <header class="panel-heading">
+
+                        <p style="width: 100px;">
+                            <span class="input-group-addon btn btn-info" id="category-btn">添加分类</span>
+                        </p>
+                    </header>
+                    <div class="panel-body">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>分类名</th>
+                                <th>建立日期</th>
+                                <th>编辑</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for category in categorys %}
+                                    <tr>
+                                        <td>{{category.id}}</td>
+                                        <td>{{category.name}}</td>
+                                        <td>{{category.createtime}}</td>
+                                        <td>
+                                            <a href="/article/delete_category_tag?c_uuid={{ category.uuid }}" >删除</a>
+                                        </td>
+                                    </tr>
+                                {% end %}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+          </div>
+        <!-- 添加分类结束 -->
+        <!-- 添加标签 -->
+            <div class="row">
+            <div class="col-sm-12">
+                <section class="panel">
+                    <header class="panel-heading">
+                        <p style="width: 100px;">
+                            <span class="input-group-addon btn btn-info" id="tag-btn">添加标签</span>
+                        </p>
+                    </header>
+                    <div class="panel-body">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>标签名</th>
+                                <th>建立日期</th>
+                                <th>编辑</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for tag in tags %}
+                                    <tr>
+                                        <td>{{tag.id}}</td>
+                                        <td>{{tag.name}}</td>
+                                        <td>{{tag.createtime}}</td>
+                                        <td>
+                                            <a href="/article/delete_category_tag?t_uuid={{ tag.uuid }}" >删除</a>
+                                        </td>
+                                    </tr>
+                                {% end %}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+          </div>
+        <!-- 添加标签结束 -->
+        </div>
+
+    </div>
+
+{% end %}
+
+{% block end %}
+        <script src="/static/js/article/article_add_category_tag.js"></script>
+{% end %}

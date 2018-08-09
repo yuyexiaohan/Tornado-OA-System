@@ -1,0 +1,179 @@
+{% extends '../base/main_user_base.html' %}
+
+
+{% block head %}
+    <link href="/static/common/sweetalert/sweetalert.css" rel="stylesheet">
+{% end %}
+
+{% block page_heading %}
+        <!-- page heading start-->
+        <div class="page-heading">
+            <h3>
+                文章 <small>详情页</small>
+            </h3>
+            <ul class="breadcrumb">
+                <li>
+                    <a href="#">Dashboard</a>
+                </li>
+                <li>
+                    <a href="#">Extra Pages</a>
+                </li>
+                <li class="active">详情页</li>
+            </ul>
+        </div>
+        <!-- page heading end-->
+{% end %}
+
+{% block body_wrapper %}
+
+        <!--body wrapper start-->
+        <div class="wrapper">
+            <div class="row blog">
+                <div class="col-md-1"></div>
+                <!-- 文章详情栏 -->
+                <div class="col-md-10">
+                    <div class="blog">
+                        <div class="single-blog">
+                            <!-- 文章栏 -->
+                            <div class="panel">
+                                <div class="panel-body">
+                                    <h1 class="text-center mtop35"><a href="#">{{ article.title }}</a></h1>
+                                    <p class="text-center auth-row">
+                                       作者: <a href="javascript:;">{{ article.user.name  }}</a>   |   日期: {{ article.createtime }}  | <a href="javascript:;">评论({{ len(article.comments) }})</a><a href="javascript:;"> | 阅读({{ article.readnum }})</a>
+                                    </p>
+                                    <p>
+                                        {# 将原有数据以原有方式放入编辑器中，防止转义 #}
+                                        {% raw article.content %}
+                                       
+                                    </p>
+                                    <div class="blog-tags">
+                                        标签
+                                        {% for tag in article.tags %}
+                                            <a href="javascript:;">{{ tag.name }}</a>
+                                        {% end %}
+                                        <span class="pull-right">分类:<a href="javascript:;" >{{ article.category.name }}</a></span>
+                                    </div>
+                                    <div class="blog-tags">
+                                        <div class="pull-left tag-social">
+                                            <a href="javascript:;" id="like-btn" class="btn btn-share pull-left" >
+                                                {% if current_user in article.user_likes %}
+                                                    <span id="like" data="no">取消点赞</span>
+                                                {% else %}
+                                                    <span id="like" data="yes">点赞</span>
+                                                {% end %}
+                                                ({{ len(article.user_likes)}})</a>
+
+                                        </div>
+                                        {% for user in article.user_likes %}
+                                            <a href="javascript:;">{{ user.name }}</a>
+                                        {% end %}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 文章栏结束 -->
+
+                            <!-- 评论栏 -->
+                            <div class="panel">
+                                <div class="panel-body">
+                                    <h1 class="text-center cmnt-head">{{ len(comments) }} Comments</h1>
+
+                                    <!-- 评论列表 -->
+                                    {% for comment in comments %}
+                                        <div class="media blog-cmnt">
+                                            <a href="javascript:;" class="pull-left">
+                                                <img alt="" src="/static/images/useravatars/{{ comment.user.avatar }}" class="media-object">
+                                            </a>
+                                            <div class="media-body">
+                                                <h4 class="media-heading">
+                                                    <a href="#">{{ comment.user.name }}</a>
+                                                </h4>
+                                                <div class="bl-status">
+                                                    <span class="pull-left">{{ comment.createtime }}</span>
+                                                    <a href="#"  class="pull-right reply second-commend-btn" data-id="{{ comment.id }}">评论</a>
+                                                </div>
+                                                <p class="mp-less">
+                                                    {{ comment.content }}
+                                                </p>
+
+                                                <!-- 隐藏的评论栏 -->
+                                                <div class="panel" id="{{ comment.id }}" style="display: none">
+                                                    <div class="panel-body">
+                                                        <form  role="form" class="form-horizontal leave-cmnt">
+                                                            <div class="form-group">
+                                                                <div class="col-lg-12">
+                                                                    <textarea class=" form-control seconde-comment-content{{comment.id  }}" rows="3" placeholder="Message" ></textarea>
+                                                                </div>
+                                                            </div>
+                                                            <p>
+                                                                <button class="btn btn-post-cmnt pull-right seconde-comment-add" d-id="{{ comment.id }}" type="submit">提交评论</button>
+                                                            </p>
+                                                        </form>
+                                                    </div>
+                                                </div>
+
+                                                <!-- 二级评论 -->
+
+                                                {% for s in comment.second_comments %}
+                                                    <div class="media blog-cmnt">
+                                                        <a href="javascript:;" class="pull-left">
+                                                                                                <!-- s.comment.user.avatar 改成s.user.avater -->
+                                                            <img alt="" src="/static/images/useravatars/{{ s.user.avatar }}" class="media-object-child">
+                                                        </a>
+                                                        <div class="media-body">
+                                                            <h4 class="media-heading">
+                                                                <!-- s.comment.user.name 改成 s.user.name -->
+                                                                <a href="#">{{ s.user.name }}</a>
+                                                            </h4>
+                                                            <div class="bl-status">
+                                                                <span class="pull-left">{{ s.createtime }}</span>
+                                                                <!--<a href="#" class="pull-right reply">Reply</a>-->
+                                                            </div>
+                                                            <p class="mp-less">
+                                                                {{ s.content }}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                {% end %}
+                                            </div>
+                                        </div>
+                                    {% end %}
+                                </div>
+                            </div>
+                            <!-- 评论栏结束 -->
+
+                            <!-- 评论输入栏 -->
+                            <div class="panel">
+                                <div class="panel-body">
+                                    <h1 class="text-center cmnt-head ">评论</h1>
+                                    <p class="text-center fade-txt">If you want you can <a href="#">Cancel Reply</a></p>
+
+                                    <form  role="form" class="form-horizontal leave-cmnt">
+                                        <div class="form-group">
+                                            <div class="col-lg-12">
+                                                <textarea class=" form-control" id="comment-content" rows="8" placeholder="Message" ></textarea>
+                                            </div>
+                                        </div>
+                                        <p>
+                                            <button class="btn btn-post-cmnt pull-right" id="comment-add" data-id="{{ article.id }}" type="submit">提交评论</button>
+                                        </p>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- 评论输入栏结束 -->
+                        </div>
+                    </div>
+                </div>
+                <!-- 文章详情栏结束 -->
+
+                <div class="col-md-1"></div>
+            </div>
+        </div>
+
+        <!--body wrapper end-->
+{% end %}
+
+{% block end %}
+     <script src="/static/common/sweetalert/sweetalert.min.js"></script>
+     <script src="/static/js/article/article.js"></script>
+{% end %}
+

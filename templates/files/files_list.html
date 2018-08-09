@@ -1,0 +1,93 @@
+{% extends '../base/main_user_base.html' %}
+
+{% block head %}
+    <!-- alert插件的样式文件 -->
+{% end %}
+
+
+{% block page_heading %}
+        <!-- page heading start-->
+        <div class="page-heading">
+            <h3>
+                文件列表 <small>Subtext for header</small>
+            </h3>
+            <ul class="breadcrumb">
+                <li>
+                    <a href="#">Dashboard</a>
+                </li>
+                <li>
+                    <a href="#">Extra Pages</a>
+                </li>
+                <li class="active">文件列表 </li>
+            </ul>
+        </div>
+        <!-- page heading end-->
+{% end %}
+
+
+{% block body_wrapper %}
+    <div class="wrapper">
+            <div class="row">
+            <div class="col-sm-12">
+                <section class="panel">
+                    <header class="panel-heading">
+                        文件列表  <a href="/files/files_upload">上传文件</a>
+                            <span class="tools pull-right">
+                                <a href="javascript:;" class="fa fa-chevron-down"></a>
+                                <a href="javascript:;" class="fa fa-times"></a>
+                             </span>
+                    </header>
+                    <div class="panel-body">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>文件名</th>
+                                <th>建立日期</th>
+                                <th>文件类型</th>
+                                <th>文件长度</th>
+                                <th>是否删除</th>
+                                <th>编辑</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for fi in files %}
+                                        <tr>
+                                            <td>{{fi.id}}</td>
+                                            <td>{{fi.filename}}</td>
+                                            <td>{{fi.createtime}}</td>
+                                            <td>{{fi.content_type}}</td>
+                                            <td>{{fi.content_length}}</td>
+                                            <td>{{fi.locked}}</td>
+                                            <td>
+                                                <a href="/files/files_message?uuid={{ fi.uuid }}" >详情</a>
+                                            </td>
+                                        </tr>
+                                {% end %}
+                            </tbody>
+                        </table>
+                          <div class="">
+                              <ul class="pagination">
+                                  <li><a href="#">«</a></li>
+                                  <li class="active"><a href="#">1</a></li>
+                                  <li><a href="#">2</a></li>
+                                  <li><a href="#">3</a></li>
+                                  <li ><a href="#">4</a></li>
+                                  <li><a href="#">5</a></li>
+                                  <li><a href="#">»</a></li>
+                              </ul>
+                          </div>
+
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+{% end %}
+
+
+{% block end %}
+        <!-- alert插件的js文件 -->
+        <script src="/static/js/files/file_upload.js"></script>
+
+{% end %}

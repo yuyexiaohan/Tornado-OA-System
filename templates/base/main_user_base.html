@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="keywords" content="admin, dashboard, bootstrap, template, flat, modern, theme, responsive, fluid, retina, backend, html5, css, css3">
+  <meta name="description" content="">
+  <meta name="author" content="ThemeBucket">
+  <link rel="shortcut icon" href="#" type="image/png">
+
+  <title>AdminX</title>
+
+  <!--icheck-->
+  <link href="/static/common/js/iCheck/skins/minimal/minimal.css" rel="stylesheet">
+  <link href="/static/common/js/iCheck/skins/square/square.css" rel="stylesheet">
+  <link href="/static/common/js/iCheck/skins/square/red.css" rel="stylesheet">
+  <link href="/static/common/js/iCheck/skins/square/blue.css" rel="stylesheet">
+
+  <!--dashboard calendar-->
+  <link href="/static/common/css/clndr.css" rel="stylesheet">
+
+  <!--Morris Chart CSS -->
+  <link rel="stylesheet" href="/static/common/js/morris-chart/morris.css">
+
+  <!--common-->
+  <link href="/static/common/css/style.css" rel="stylesheet">
+  <link href="/static/common/css/style-responsive.css" rel="stylesheet">
+
+
+
+
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+  <script src="/static/common/js/html5shiv.js"></script>
+  <script src="/static/common/js/respond.min.js"></script>
+  <![end]-->
+
+    {% block head %} {% end %}
+</head>
+
+<body class="sticky-header">
+
+<section>
+    <!-- left side start-->
+    <div class="left-side sticky-left-side">
+
+        <div class="left-side-inner">
+
+            <!-- visible to small devices only -->
+            <div class="visible-xs hidden-sm hidden-md hidden-lg">
+                <div class="media logged-user">
+                    <img alt="" src="/static/common/images/photos/user-avatar.png" class="media-object">
+                    <div class="media-body">
+                        <h4><a href="#">John Doe</a></h4>
+                        <span>"Hello There..."</span>
+                    </div>
+                </div>
+
+                <h5 class="left-nav-title">Account Information</h5>
+                <ul class="nav nav-pills nav-stacked custom-nav">
+                  <li><a href="#"><i class="fa fa-user"></i> <span>个人中心</span></a></li>
+                  <li><a href="#"><i class="fa fa-cog"></i> <span>编辑信息</span></a></li>
+                  <li><a href="#"><i class="fa fa-sign-out"></i> <span>退出登录</span></a></li>
+                </ul>
+            </div>
+
+            <!--sidebar nav start-->
+            <ul class="nav nav-pills nav-stacked custom-nav">
+                <li class="active"><a href="/"><i class="fa fa-home"></i> <span>首页</span></a></li>
+
+                {% if menu_permission('personal_center', 'menu') %}
+                <li class="menu-list"><a href=""><i class="fa fa-laptop"></i> <span>个人中心</span></a>
+                    <ul class="sub-menu-list">
+                        <li><a href="/account/user_profile">个人信息</a></li>
+                        <li><a href="/account/user_edit">编辑信息</a></li>
+                    </ul>
+                </li>
+                {% end %}
+
+                 {% if menu_permission('document_manage', 'menu') %}
+                <li class="menu-list"><a href=""><i class="fa fa-cogs"></i> <span>文档管理</span></a>
+                    <ul class="sub-menu-list">
+                          <li><a href="/article/article_list"> 文档首页</a></li>
+                        <li><a href="/article/add_article"> 文档上传</a></li>
+                        <li><a href="/article/article_modify_manage"> 编辑文档</a></li>
+                        <li><a href="/article/add_category_tag_list"> 添加标签和分类</a></li>
+                    </ul>
+                </li>
+                {% end %}
+
+
+                 {% if menu_permission('filemanage', 'menu') %}
+                    <li class="menu-list"><a href=""><i class="fa fa-envelope"></i> <span>文件管理</span></a>
+                        <ul class="sub-menu-list">
+                            <li><a href="/files/files_list/1"> 文件列表</a></li>
+                            <li><a href="/files/files_upload"> 文件上传</a></li>
+                            <li><a href="/files/files_page_list/1"> 文件分页列表</a></li>
+
+                        </ul>
+                    </li>
+                {% end %}
+
+
+                {% if menu_permission('message_manage', 'menu') %}
+                 <li class="menu-list"><a href=""><i class="fa fa-envelope"></i> <span>消息管理</span></a>
+                        <ul class="sub-menu-list">
+                            <li><a href="/message/send_message"> 发送消息</a></li>
+                            <li><a href="/message/message"> 时光说说</a></li>
+
+                        </ul>
+                    </li>
+                {% end %}
+
+                {% if menu_permission('authority_manage', 'menu') %}
+               <li class="menu-list"><a href=""><i class="fa fa-envelope"></i> <span>权限管理</span></a>
+                    <ul class="sub-menu-list">
+                        <li><a href="/permission/manage_list">权限管理</a></li>
+                    </ul>
+                </li>
+                {% end %}
+
+
+            </ul>
+            <!--sidebar nav end-->
+
+        </div>
+    </div>
+    <!-- left side end-->
+
+    <!-- main content start-->
+        <div class="main-content" >
+
+        <!-- header section start-->
+        <div class="header-section">
+
+            <!--toggle button start-->
+            <a class="toggle-btn"><i class="fa fa-bars"></i></a>
+            <!--toggle button end-->
+
+            <!--search start-->
+            <!--search end-->
+
+            <!--notification menu start -->
+            <div class="menu-right">
+                <ul class="notification-menu">
+                    <li>
+                        <a href="#" class="btn btn-default dropdown-toggle info-number" data-toggle="dropdown">
+                            <i class="fa fa-envelope-o"></i>
+                            <span class="badge">5</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-head pull-right">
+                            <h5 class="title">You have 5 Mails </h5>
+                            <ul class="dropdown-list normal-list">
+                                <li class="new">
+                                    <a href="">
+                                        <span class="thumb"><img src="/static/common/images/photos/user1.png" alt="" /></span>
+                                        <span class="desc">
+                                          <span class="name">John Doe <span class="badge badge-success">new</span></span>
+                                          <span class="msg">Lorem ipsum dolor sit amet...</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="">
+                                        <span class="thumb"><img src="/static/common/images/photos/user2.png" alt="" /></span>
+                                        <span class="desc">
+                                          <span class="name">Jonathan Smith</span>
+                                          <span class="msg">Lorem ipsum dolor sit amet...</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="">
+                                        <span class="thumb"><img src="/static/common/images/photos/user3.png" alt="" /></span>
+                                        <span class="desc">
+                                          <span class="name">Jane Doe</span>
+                                          <span class="msg">Lorem ipsum dolor sit amet...</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="">
+                                        <span class="thumb"><img src="/static/common/images/photos/user4.png" alt="" /></span>
+                                        <span class="desc">
+                                          <span class="name">Mark Henry</span>
+                                          <span class="msg">Lorem ipsum dolor sit amet...</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="">
+                                        <span class="thumb"><img src="/static/common/images/photos/user5.png" alt="" /></span>
+                                        <span class="desc">
+                                          <span class="name">Jim Doe</span>
+                                          <span class="msg">Lorem ipsum dolor sit amet...</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="new"><a href="">Read All Mails</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            <img src="/static/images/useravatars/{% if current_user %}{{ current_user.avatar }}{% end %}" alt="" />
+                            {% if current_user %}{{ current_user.name }}{% end %}
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
+                            <li><a href="/account/user_profile"><i class="fa fa-user"></i>  个人中心</a></li>
+                            <li><a href="/account/user_edit"><i class="fa fa-cog"></i>  编辑信息</a></li>
+                            <li><a href="/auth/user_logout"><i class="fa fa-sign-out"></i> 退出登录</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+            <!--notification menu end -->
+
+        </div>
+        <!-- header section end-->
+
+        <!-- page heading start-->
+        {% block page_heading %}
+
+        {% end %}
+        <!-- page heading end-->
+
+        <!--body wrapper start-->
+        {% block body_wrapper %}
+
+        {% end %}
+        <!--body wrapper end-->
+
+        <!--footer section start-->
+        <footer>
+            2018 &copy; Tornado OA 系统
+        </footer>
+        <!--footer section end-->
+    </div>
+    <!-- main content end-->
+</section>
+
+<!-- Placed js at the end of the document so the pages load faster -->
+<script src="/static/common/js/jquery-1.10.2.min.js"></script>
+<script src="/static/common/js/jquery-ui-1.9.2.custom.min.js"></script>
+<script src="/static/common/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="/static/common/js/bootstrap.min.js"></script>
+<script src="/static/common/js/modernizr.min.js"></script>
+<script src="/static/common/js/jquery.nicescroll.js"></script>
+
+<!--easy pie chart-->
+<script src="/static/common/js/easypiechart/jquery.easypiechart.js"></script>
+<script src="/static/common/js/easypiechart/easypiechart-init.js"></script>
+
+<!--Sparkline Chart-->
+<script src="/static/common/js/sparkline/jquery.sparkline.js"></script>
+<script src="/static/common/js/sparkline/sparkline-init.js"></script>
+
+<!--icheck -->
+<script src="/static/common/js/iCheck/jquery.icheck.js"></script>
+<script src="/static/common/js/icheck-init.js"></script>
+
+<!-- jQuery Flot Chart-->
+<script src="/static/common/js/flot-chart/jquery.flot.js"></script>
+<script src="/static/common/js/flot-chart/jquery.flot.tooltip.js"></script>
+<script src="/static/common/js/flot-chart/jquery.flot.resize.js"></script>
+
+
+<!--Morris Chart-->
+<script src="/static/common/js/morris-chart/morris.js"></script>
+<script src="/static/common/js/morris-chart/raphael-min.js"></script>
+
+<!--Calendar-->
+<script src="/static/common/js/calendar/clndr.js"></script>
+<script src="/static/common/js/calendar/evnt.calendar.init.js"></script>
+<script src="/static/common/js/calendar/moment-2.2.1.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
+
+<!--common scripts for all pages-->
+<script src="/static/common/js/scripts.js"></script>
+
+<!--Dashboard Charts-->
+<script src="/static/common/js/dashboard-chart-init.js"></script>
+{% block end %} {% end %}
+
+</body>
+</html>
