@@ -99,13 +99,12 @@ def auth_email_libs(self,email_code,email,u):
 def add_avatar_lib(self,body):
 	'''添加图像'''
 	try:
-		a = '1' + 1
 		user = self.current_user # 获取当前用户
 
 		# 将去除的body作为user的图像进行存储
 		# 给avatar赋值一般是user.avatar(body),这里这样通过等号的方式进行赋值书写更加方便，但具体由那个方式去赋值，是由.avatar方法定义
 		user.avatar = body
-		user.updata_time = datetime.now()
+		user.update_time = datetime.now()
 		self.db.add(user)
 		self.db.commit()
 		return {'status':True}

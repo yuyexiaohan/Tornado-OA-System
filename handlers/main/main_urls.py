@@ -6,6 +6,7 @@ from handlers.account.account_urls import account_urls
 from handlers.permission.permission_urls import permission_urls
 from handlers.article.article_urls import article_urls
 from handlers.files.files_urls import files_urls
+from handlers.message.message_urls import message_urls
 
 handlers = [
 	(r'/',MainHandler),
@@ -20,3 +21,5 @@ handlers += permission_urls # 导入权限管理模块的urls
 handlers += article_urls # 导入文章管理模块
 
 handlers += files_urls # 导入文件管理模块
+
+handlers += message_urls # 导入消息模块

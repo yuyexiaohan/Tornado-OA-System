@@ -1,0 +1,183 @@
+{% extends '../base/main_user_base.html' %}
+
+{% block head %}
+<link href="/static/common/sweetalert/sweetalert.css" rel="stylesheet">
+<script src="/static/common/sweetalert/sweetalert.min.js"></script>
+{% end %}
+
+
+{% block page_heading %}
+        <!-- page heading start-->
+        <div class="page-heading">
+            <h3>
+                权限管理 <small>Subtext for header</small>
+            </h3>
+            <ul class="breadcrumb">
+                <li>
+                    <a href="#">Dashboard</a>
+                </li>
+                <li>
+                    <a href="#">Extra Pages</a>
+                </li>
+                <li class="active">权限管理 </li>
+            </ul>
+        </div>
+        <!-- page heading end-->
+{% end %}
+
+
+{% block body_wrapper %}
+    <div class="wrapper">
+                    <header class="panel-heading">
+                        <p style="width: 100px;">
+                                <span class="input-group-addon btn btn-info" id="tag-btn">发送消息</span>
+                        </p>
+                        <form class= "login" method="post" action="/message/send_message">
+                                {% module xsrf_form_html() %}
+                                <p>消息内容<input type="text" name="content">  发送到个人<input type="text" name="user">
+                                    <input type="hidden" name="send_type" value="user">
+                                <input type="submit"></p>
+                        </form>
+
+                        <form class= "login" method="post" action="/message/send_message">
+                                {% module xsrf_form_html() %}
+                                <p>消息内容<input type="text" name="content">发送到部门
+                                <!-- 角色栏 -->
+                                <select name="roleid" id="category-select" >
+                                    {% for role in roles %}
+                                        <option value="{{role.id}}" selected="selected">{{role.name}}</option>
+                                    {% end %}
+                                </select>
+                                    <input type="hidden" name="send_type" value="role">
+                                <!-- 角色栏结束 -->
+                                <input type="submit"></p>
+                        </form>
+
+                        <form class= "login" method="post" action="/message/send_message">
+                                {% module xsrf_form_html() %}
+                                <p>消息内容<input type="text" name="content">发送给所有人
+                                    <input type="hidden" name="send_type" value="system">
+                                <input type="submit"></p>
+                        </form>
+                    </header>
+            <!-- 用户消息列表 -->
+          <div class="row">
+            <div class="col-sm-12">
+                <section class="panel">
+                    <div class="panel-body">
+                         <p style="width: 100px;">
+                                <span class="input-group-addon btn btn-info" id="tag-btn">用户消息</span>
+                        </p>
+
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>内容</th>
+                                <th>发送者</th>
+                                <th>接收者</th>
+                                <th>发送类型</th>
+                                <th>发送时间</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for m in user_msg %}
+                                    <tr>
+                                        <td>{{m['content']}}</td>
+                                        <td>{{m['sender']}}</td>
+                                        <td>{{m['target']}}</td>
+                                        <td>{{m['send_type']}}</td>
+                                        <td>{{m['datetime']}}</td>
+                                    </tr>
+                                {% end %}
+                            </tbody>
+                        </table>
+
+                    </div>
+                </section>
+            </div>
+          </div>
+         <!-- 用户消息列表结束 -->
+         <!-- 角色消息列表 -->
+        <div class="row">
+            <div class="col-sm-12">
+                <section class="panel">
+                    <div class="panel-body">
+                        <!-- 角色消息列表 -->
+                         <p style="width: 100px;">
+                                <span class="input-group-addon btn btn-info" id="tag-btn">角色消息</span>
+                        </p>
+
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>内容</th>
+                                <th>发送者</th>
+                                <th>接收者</th>
+                                <th>发送类型</th>
+                                <th>发送时间</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for m in role_msg %}
+                                    <tr>
+                                        <td>{{m['content']}}</td>
+                                        <td>{{m['sender']}}</td>
+                                        <td>{{m['target']}}</td>
+                                        <td>{{m['send_type']}}</td>
+                                        <td>{{m['datetime']}}</td>
+                                    </tr>
+                                {% end %}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+          </div>
+             <!-- 角色消息列表结束 -->
+
+        <!-- 系统消息列表 -->
+        <div class="row">
+            <div class="col-sm-12">
+                <section class="panel">
+                    <div class="panel-body">
+                        <!-- 角色消息列表 -->
+                         <p style="width: 100px;">
+                                <span class="input-group-addon btn btn-info" id="tag-btn">系统消息</span>
+                        </p>
+
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>内容</th>
+                                <th>发送者</th>
+                                <th>接收者</th>
+                                <th>发送类型</th>
+                                <th>发送时间</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for m in system_msg %}
+                                    <tr>
+                                        <td>{{m['content']}}</td>
+                                        <td>{{m['sender']}}</td>
+                                        <td>{{m['target']}}</td>
+                                        <td>{{m['send_type']}}</td>
+                                        <td>{{m['datetime']}}</td>
+                                    </tr>
+                                {% end %}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+          </div>
+             <!-- 系统消息列表结束 -->
+
+
+
+        </div>
+{% end %}
+
+{% block end %}
+
+{% end %}
