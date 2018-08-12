@@ -30,9 +30,6 @@ class BaseHandler(tornado.web.RequestHandler, SessionMixin):
         self.db.close()
 
 
-
-
-
 class BaseWebSocketHandler(tornado.websocket.WebSocketHandler, SessionMixin):
     def initialize(self):
         self.flashes = None # 将弹框信息放入basehandler文件中，
