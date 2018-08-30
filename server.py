@@ -18,9 +18,9 @@ from models.article.article_model import (Article,ArticleToTag,UserLikeArticle,C
 from models.files.upload_file_model import FilesToUser,DelFilesToUser,Files
 
 
-print 'dir(tornado):',dir(tornado)
-print 'dir(tornado.web):',dir(tornado.web)
-print 'dir(tornado.web.Application):',dir(tornado.web.Application)
+# print 'dir(tornado):',dir(tornado)
+# print 'dir(tornado.web):',dir(tornado.web)
+# print 'dir(tornado.web.Application):',dir(tornado.web.Application)
 
 #定义一个默认的端口
 define("port", default=8000, help="run port ", type=int) # 定义端口号
