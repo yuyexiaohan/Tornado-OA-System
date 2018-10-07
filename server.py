@@ -36,7 +36,7 @@ if __name__ == "__main__":
 
     # 当是属性.t时，执行创建表函数
     if options.t:
-        create_talbes.run()
+        create_talbes.run() # 调用创建数据库的映射函数生成数据库中的表
 
     # 当是属性.u时，就是创建用户命令
     # 定义如果执行-u时，为创建一个用户

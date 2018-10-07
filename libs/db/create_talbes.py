@@ -5,7 +5,7 @@ from dbsession import Base
 #将创建好的User类，映射到数据库的users表中
 def run():
     print '------------create_all-------------'
-    Base.metadata.create_all(engine)
+    Base.metadata.create_all(engine) # AQLalchemy将数据映射到数据库中
     print '------------create_end-------------'
 
 if __name__ == "__main__":

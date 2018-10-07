@@ -6,8 +6,8 @@ from sqlalchemy.orm import relationship
 from sqlalchemy import (create_engine, Column, Integer, String,
                         Text, Boolean, Date, DateTime, ForeignKey)
 
-from libs.db.dbsession import Base
-from libs.db.dbsession import dbSession
+from libs.db.dbsession import Base # SQLalchemy创建的基类
+from libs.db.dbsession import dbSession # 模型工厂
 
 
 class UserLikeArticle(Base):
@@ -38,7 +38,7 @@ class SecondComment(Base):
     #与用户表建立外键关系
     user_id = Column(Integer, ForeignKey('user.id'))
 
-
+    # @classmethod 是一个将函数转化为类的方法
     @classmethod
     def all(cls):
         return dbSession.query(cls).all()
