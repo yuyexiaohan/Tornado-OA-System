@@ -35,7 +35,7 @@
   <script src="/static/common/js/respond.min.js"></script>
   <![end]-->
 
-    {% block head %} {% end %}
+    {% block head %} {% endblock %}
 </head>
 
 <body class="sticky-header">
@@ -75,7 +75,7 @@
                         <li><a href="/account/user_edit">编辑信息</a></li>
                     </ul>
                 </li>
-                {% end %}
+                {% endif %}
 
                  {% if menu_permission('document_manage', 'menu') %}
                 <li class="menu-list"><a href=""><i class="fa fa-cogs"></i> <span>文档管理</span></a>
@@ -86,7 +86,7 @@
                         <li><a href="/article/add_category_tag_list"> 添加标签和分类</a></li>
                     </ul>
                 </li>
-                {% end %}
+                {% endif %}
 
 
                  {% if menu_permission('filemanage', 'menu') %}
@@ -98,7 +98,7 @@
 
                         </ul>
                     </li>
-                {% end %}
+                {% endif %}
 
 
                 {% if menu_permission('message_manage', 'menu') %}
@@ -109,7 +109,7 @@
 
                         </ul>
                     </li>
-                {% end %}
+                {% endif %}
 
                 {% if menu_permission('authority_manage', 'menu') %}
                <li class="menu-list"><a href=""><i class="fa fa-envelope"></i> <span>权限管理</span></a>
@@ -117,7 +117,7 @@
                         <li><a href="/permission/manage_list">权限管理</a></li>
                     </ul>
                 </li>
-                {% end %}
+                {% endif %}
 
 
             </ul>
@@ -202,8 +202,8 @@
                     </li>
                     <li>
                         <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                            <img src="/static/images/useravatars/{% if current_user %}{{ current_user.avatar }}{% end %}" alt="" />
-                            {% if current_user %}{{ current_user.name }}{% end %}
+                            <img src="/static/images/useravatars/{% if current_user %}{{ current_user.avatar }}{% endif %}" alt="" />
+                            {% if current_user %}{{ current_user.name }}{% endif %}
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
@@ -223,13 +223,13 @@
         <!-- page heading start-->
         {% block page_heading %}
 
-        {% end %}
+        {% endblock %}
         <!-- page heading end-->
 
         <!--body wrapper start-->
         {% block body_wrapper %}
 
-        {% end %}
+        {% endblock %}
         <!--body wrapper end-->
 
         <!--footer section start-->
@@ -282,7 +282,7 @@
 
 <!--Dashboard Charts-->
 <script src="/static/common/js/dashboard-chart-init.js"></script>
-{% block end %} {% end %}
+{% block end %} {% endblock %}
 
 </body>
 </html>
