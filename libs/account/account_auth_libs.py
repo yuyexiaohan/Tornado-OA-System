@@ -6,8 +6,9 @@ from models.account.account_user_model import User
 from libs.ytx_sms_python2.yun_tong_xun_lib import sendTemplateSMS # 导入短信验证信息
 
 
-"""创建一个生成图形验证码并将其保存在redis数据库中的函数"""
+
 def create_captcha_img(self, pre_code, code):
+	"""创建一个生成图形验证码并将其保存在redis数据库中的函数"""
 	if pre_code:
 		# 当pre_code存在时，就将其删除
 		self.conn.delete("captcha:%s" % pre_code)
@@ -19,8 +20,9 @@ def create_captcha_img(self, pre_code, code):
 	self.conn.setex("captcha:%s" % code,text.lower(),60)  # 将图形验证码的英文部分都小写
 	return img
 
-"""定义一个图形验证码判别函数"""
+
 def auth_captcha(self,captcha_code,code):
+	"""定义一个图形验证码判别函数"""
 	# captcha_code 是界面input框，自己输入的数据
 	# if captcha_code: # 这种判断和if captcha_code == '
 	# 比较而言的话，更加费时间，这里系统不知道captcha_code的数据类型
