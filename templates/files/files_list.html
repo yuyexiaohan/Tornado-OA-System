@@ -68,13 +68,24 @@
                         </table>
                           <div class="">
                               <ul class="pagination">
-                                  <li><a href="#">«</a></li>
-                                  <li class="active"><a href="#">1</a></li>
-                                  <li><a href="#">2</a></li>
-                                  <li><a href="#">3</a></li>
-                                  <li ><a href="#">4</a></li>
-                                  <li><a href="#">5</a></li>
-                                  <li><a href="#">»</a></li>
+                                  <li><a href="1"><<</a></li>
+
+                                  {% for index in [1,2,3,4,5] %}
+                                      <li {% if 3 == index %}
+                                          class="active"
+                                          {% end %}
+                                      <a href="{{ index }}">{{ index }}</a>
+                                      </li>
+                                  {% end %}
+
+                              <li><a href="2">>></a></li>
+{#                                  <li><a href="#">«</a></li>#}
+{#                                  <li class="active"><a href="#">1</a></li>#}
+{#                                  <li><a href="#">2</a></li>#}
+{#                                  <li><a href="#">3</a></li>#}
+{#                                  <li ><a href="#">4</a></li>#}
+{#                                  <li><a href="#">5</a></li>#}
+{#                                  <li><a href="#">»</a></li>#}
                               </ul>
                           </div>
 
