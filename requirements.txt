@@ -4,7 +4,7 @@ Pillow==4.1.0
 pycket==0.3.0
 PyMySQL==0.7.11
 qiniu==7.1.2
-redis==2.10.5
+redis==4.5.3
 requests==2.14.2
 SQLAlchemy==1.1.9
 tornado==4.4.3
