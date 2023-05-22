@@ -5,6 +5,6 @@ pycket==0.3.0
 PyMySQL==0.7.11
 qiniu==7.1.2
 redis==2.10.5
-requests==2.14.2
+requests==2.31.0
 SQLAlchemy==1.1.9
 tornado==4.4.3
