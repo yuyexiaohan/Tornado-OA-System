@@ -7,4 +7,4 @@ qiniu==7.1.2
 redis==2.10.5
 requests==2.14.2
 SQLAlchemy==1.1.9
-tornado==4.4.3
+tornado==6.3.2
